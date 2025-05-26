@@ -36,8 +36,10 @@ train_loader = DataLoader(trainset, batch_size=32, num_workers=0, shuffle=True) 
 
 test_loader = DataLoader(testset, batch_size=32, num_workers=0, shuffle=False)
 
+
 def train(model, train_loader, criterion, optimizer, num_epochs): # 定义训练函数，参数解释：模型，训练集，损失函数，优化器，训练轮数
     best_acc = 0.0
+    # 训练模型
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
@@ -64,6 +66,7 @@ def evaluate(model, test_loader, criterion):
     test_loss = 0.0 # 测试的初始化loss
     correct = 0
     total = 0
+    # 关闭梯度计算，因为在测试时不需要计算梯度，也不需要更新参数
     with torch.no_grad():
         for inputs, labels in test_loader:
             inputs, labels = inputs.to(device), labels.to(device)
